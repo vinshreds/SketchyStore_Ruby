@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SketchyStore - Your #1 Source for Mystery Boxes!</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
+    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <%# Includes all stylesheet files in app/assets/stylesheets %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+    <style>
+      body {
+        background: #000080;
+        color: #ffffff;
+        font-family: "Comic Sans MS", cursive;
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        background: #000000;
+        border: 3px solid #ff00ff;
+        margin: 20px auto;
+        padding: 20px;
+        width: 90%;
+        max-width: 800px;
+      }
+      .header {
+        background: #ff00ff;
+        color: #ffff00;
+        padding: 10px;
+        text-align: center;
+        border: 3px solid #00ff00;
+      }
+      .nav {
+        background: #00ff00;
+        padding: 10px;
+        margin: 10px 0;
+        text-align: center;
+      }
+      .nav a {
+        color: #000000;
+        margin: 0 10px;
+        text-decoration: none;
+        font-weight: bold;
+      }
+      .nav a:hover {
+        color: #ff00ff;
+        text-decoration: underline;
+      }
+      .content {
+        background: #000000;
+        border: 2px solid #00ff00;
+        padding: 20px;
+        margin-top: 20px;
+      }
+      .button {
+        background: #ff00ff;
+        border: 2px solid #00ff00;
+        color: #ffff00;
+        padding: 5px 10px;
+        text-decoration: none;
+        font-weight: bold;
+      }
+      .button:hover {
+        background: #00ff00;
+        color: #ff00ff;
+      }
+      .notice, .alert {
+        background: #ffff00;
+        color: #000000;
+        padding: 10px;
+        margin: 10px 0;
+        border: 2px solid #ff00ff;
+      }
+      marquee {
+        background: #000000;
+        color: #00ff00;
+        padding: 5px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>🌟 Welcome to SketchyStore! 🌟</h1>
+        <marquee>🔥 HOT DEALS! 🔥 Check out our MYSTERY BOXES! 🔥 Limited time offer! 🔥</marquee>
+      </div>
+
+      <div class="nav">
+        <%= link_to "🏠 Home", root_path %>
+        <% if user_signed_in? %>
+          <%= link_to "🛍️ Products", products_path %>
+          <%= link_to "🛒 Cart", cart_path %>
+          <%= link_to "🚪 Sign Out", destroy_user_session_path, data: { turbo_method: :delete } %>
+        <% else %>
+          <%= link_to "🔑 Sign In", new_user_session_path %>
+          <%= link_to "📝 Sign Up", new_user_registration_path %>
+        <% end %>
+      </div>
+
+      <div class="content">
+        <% if notice %>
+          <div class="notice">
+            <%= notice %>
+          </div>
+        <% end %>
+        
+        <% if alert %>
+          <div class="alert">
+            <%= alert %>
+          </div>
+        <% end %>
+
+        <%= yield %>
+      </div>
+
+      <div style="text-align: center; margin-top: 20px;">
+        <img src="https://web.archive.org/web/20090830094359/http://geocities.com/hk/ie_logo.gif" alt="Best viewed with Internet Explorer" style="border: 0;">
+        <p>© 2025 SketchyStore - Best viewed in Internet Explorer 6.0 or Netscape Navigator</p>
+      </div>
+    </div>
+  </body>
+</html>

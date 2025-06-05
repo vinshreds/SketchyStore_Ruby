@@ -1,0 +1,47 @@
+<% content_for :title, "Products" %>
+
+<div style="text-align: center;">
+  <h2>🌟 Our Amazing Mystery Boxes! 🌟</h2>
+  <img src="https://web.archive.org/web/20090830094359/http://geocities.com/hk/under_construction.gif" alt="Under Construction" style="border: 0;">
+  
+  <% if user_signed_in? %>
+    <%= link_to "➕ Add New Product", new_product_path, class: "button" %>
+  <% end %>
+</div>
+
+<% if @products.any? %>
+  <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+    <tr style="background: #ff00ff;">
+      <th style="border: 2px solid #00ff00; padding: 10px;">Product</th>
+      <th style="border: 2px solid #00ff00; padding: 10px;">Description</th>
+      <th style="border: 2px solid #00ff00; padding: 10px;">Price</th>
+      <th style="border: 2px solid #00ff00; padding: 10px;">Action</th>
+    </tr>
+    <% @products.each do |product| %>
+      <tr style="background: #000000;">
+        <td style="border: 2px solid #00ff00; padding: 10px;">
+          <strong style="color: #ffff00;"><%= product.name %></strong>
+        </td>
+        <td style="border: 2px solid #00ff00; padding: 10px;">
+          <%= product.description %>
+        </td>
+        <td style="border: 2px solid #00ff00; padding: 10px;">
+          <span style="color: #00ff00; font-weight: bold;"><%= number_to_currency(product.price) %></span>
+        </td>
+        <td style="border: 2px solid #00ff00; padding: 10px;">
+          <%= link_to "🔍 View Details", product_path(product), class: "button" %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+<% else %>
+  <div style="text-align: center; margin-top: 20px;">
+    <img src="https://web.archive.org/web/20090830094359/http://geocities.com/hk/sad.gif" alt="Sad Face" style="border: 0;">
+    <p style="color: #ffff00;">No products found. 😢</p>
+  </div>
+<% end %>
+
+<div style="text-align: center; margin-top: 20px;">
+  <img src="https://web.archive.org/web/20090830094359/http://geocities.com/hk/new.gif" alt="New" style="border: 0;">
+  <p>More products coming soon! Stay tuned! 🎉</p>
+</div>

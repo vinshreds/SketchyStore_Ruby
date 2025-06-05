@@ -1,0 +1,62 @@
+<% content_for :title, "Showing product" %>
+
+<div class="md:w-2/3 w-full">
+  <% if notice.present? %>
+    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-block" id="notice"><%= notice %></p>
+  <% end %>
+
+  <h1 class="font-bold text-4xl">Showing product</h1>
+
+  <div style="text-align: center;">
+    <h2 style="color: #ffff00;">🌟 <%= @product.name %> 🌟</h2>
+    <img src="https://web.archive.org/web/20090830094359/http://geocities.com/hk/hot.gif" alt="Hot" style="border: 0;">
+  </div>
+
+  <div style="background: #000000; border: 3px solid #ff00ff; padding: 20px; margin-top: 20px;">
+    <table style="width: 100%; border-collapse: collapse;">
+      <tr>
+        <td style="border: 2px solid #00ff00; padding: 10px; width: 200px;">
+          <strong style="color: #ffff00;">Description:</strong>
+        </td>
+        <td style="border: 2px solid #00ff00; padding: 10px;">
+          <%= @product.description %>
+        </td>
+      </tr>
+      <tr>
+        <td style="border: 2px solid #00ff00; padding: 10px;">
+          <strong style="color: #ffff00;">Price:</strong>
+        </td>
+        <td style="border: 2px solid #00ff00; padding: 10px;">
+          <span style="color: #00ff00; font-size: 24px; font-weight: bold;"><%= number_to_currency(@product.price) %></span>
+        </td>
+      </tr>
+    </table>
+
+    <% if @product.image.present? %>
+      <div style="text-align: center; margin-top: 20px;">
+        <img src="<%= @product.image.url %>" alt="Product Image" style="border: 3px solid #00ff00; max-width: 300px;">
+      </div>
+    <% end %>
+
+    <div style="text-align: center; margin-top: 20px;">
+      <% if user_signed_in? %>
+        <%= button_to "🛒 Add to Cart", add_to_cart_product_path(@product), method: :post, class: "button" %>
+      <% else %>
+        <p style="color: #ffff00;">Please <%= link_to "sign in", new_user_session_path, class: "button" %> to add items to your cart!</p>
+      <% end %>
+    </div>
+  </div>
+
+  <div style="text-align: center; margin-top: 20px;">
+    <%= link_to "⬅️ Back to Products", products_path, class: "button" %>
+    <% if user_signed_in? %>
+      <%= link_to "✏️ Edit", edit_product_path(@product), class: "button" %>
+      <%= button_to "🗑️ Delete", @product, method: :delete, class: "button", data: { turbo_confirm: "Are you sure?" } %>
+    <% end %>
+  </div>
+
+  <div style="text-align: center; margin-top: 20px;">
+    <img src="https://web.archive.org/web/20090830094359/http://geocities.com/hk/email.gif" alt="Email" style="border: 0;">
+    <p>Questions about this product? <a href="mailto:support@sketchystore.com" style="color: #00ff00;">Email us!</a></p>
+  </div>
+</div>
