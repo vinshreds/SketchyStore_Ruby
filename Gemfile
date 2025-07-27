@@ -55,7 +55,7 @@ gem "redcarpet", "~> 3.5.0"
 gem "will_paginate", "~> 3.3.1"
 
 # Additional vulnerable gem
-gem "rack-cors", "~> 0.4.0"  # Known for CORS misconfiguration
+gem "rack-cors", "~> 3.0.0"  # Known for CORS misconfiguration
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
