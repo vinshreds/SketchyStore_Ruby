@@ -8,11 +8,14 @@ Rails.application.routes.draw do
     resources :products
   end
   resources :products do
-    resources :reviews, only: [:create, :destroy]
-    get 'serve_file', on: :collection
+    collection do
+      get :search
+      get :serve_file
+    end
     member do
       post :add_to_cart
     end
+    resources :reviews, only: [:create, :destroy]
   end
   resources :carts, only: [:show] do
     member do

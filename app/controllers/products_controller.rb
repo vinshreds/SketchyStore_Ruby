@@ -1,10 +1,17 @@
 class ProductsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!, except: [:index, :show, :search]
   before_action :set_product, only: %i[ show edit update destroy add_to_cart ]
 
   # GET /products or /products.json
   def index
     @products = Product.all
+  end
+
+  # CWE-89: SQL Injection
+  def search
+    query = params[:q]
+    @products = Product.where("name LIKE '%#{query}%' OR description LIKE '%#{query}%'")
+    render :index
   end
 
   # GET /products/1 or /products/1.json
@@ -60,8 +67,8 @@ class ProductsController < ApplicationController
 
   # CWE-73: External Control of File Name or Path
   def serve_file
-    path = params[:path]
-    send_file Rails.root.join('public/uploads', path), disposition: 'inline'
+    filename = params[:filename]
+    send_file Rails.root.join('public', 'uploads', filename)
   end
 
   def add_to_cart

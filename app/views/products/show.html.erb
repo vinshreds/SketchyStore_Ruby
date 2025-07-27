@@ -59,4 +59,34 @@
     <img src="https://web.archive.org/web/20090830094359/http://geocities.com/hk/email.gif" alt="Email" style="border: 0;">
     <p>Questions about this product? <a href="mailto:support@sketchystore.com" style="color: #00ff00;">Email us!</a></p>
   </div>
+
+  <hr>
+  <h2>Reviews</h2>
+  <% if @product.reviews.any? %>
+    <ul>
+      <% @product.reviews.each do |review| %>
+        <li>
+          <strong><%= review.user.email %>:</strong>
+          <span style="color: red; font-weight: bold;">(XSS Demo: Unescaped)</span><br>
+          <%= raw review.content %>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>No reviews yet.</p>
+  <% end %>
+
+  <% if user_signed_in? %>
+    <h3>Leave a Review</h3>
+    <%= form_with(model: [@product, @product.reviews.build], local: true) do |form| %>
+      <div>
+        <%= form.label :content, 'Your Review' %><br>
+        <%= form.text_area :content, rows: 3 %>
+      </div>
+      <%= form.submit 'Submit Review', class: 'button' %>
+    <% end %>
+    <%= link_to "Try XSS", product_reviews_path(@product, review: {content: '<script>alert(1)</script>'}), method: :post, style: "color: red; font-weight: bold;" %>
+  <% else %>
+    <p><%= link_to 'Sign in to leave a review', new_user_session_path %></p>
+  <% end %>
 </div>

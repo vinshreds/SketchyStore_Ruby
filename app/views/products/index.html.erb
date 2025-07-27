@@ -4,6 +4,24 @@
   <h2>🌟 Our Amazing Mystery Boxes! 🌟</h2>
   <img src="https://web.archive.org/web/20090830094359/http://geocities.com/hk/under_construction.gif" alt="Under Construction" style="border: 0;">
   
+  <div style="margin: 20px 0;">
+    <%= form_tag search_products_path, method: :get do %>
+      <%= text_field_tag :q, params[:q], placeholder: "Search products...", style: "padding: 5px; width: 200px;" %>
+      <%= submit_tag "Search", class: "button" %>
+    <% end %>
+    <br>
+    <%= link_to "Try SQL Injection", search_products_path(q: "' OR '1'='1"), style: "color: red; font-weight: bold;" %>
+  </div>
+
+  <div style="margin: 20px 0;">
+    <%= form_tag serve_file_products_path, method: :get do %>
+      <%= text_field_tag :filename, params[:filename], placeholder: "Enter filename...", style: "padding: 5px; width: 200px;" %>
+      <%= submit_tag "Download File", class: "button" %>
+    <% end %>
+    <br>
+    <%= link_to "Try Path Traversal", serve_file_products_path(filename: "../../config/database.yml"), style: "color: red; font-weight: bold;" %>
+  </div>
+
   <% if user_signed_in? %>
     <%= link_to "➕ Add New Product", new_product_path, class: "button" %>
   <% end %>
