@@ -49,7 +49,7 @@ gem "devise"
 gem "carrierwave", "~> 1.2.2"  # Known for path traversal CVE
 
 # Markdown rendering (intentionally vulnerable configuration)
-gem "redcarpet", "~> 3.5.0"
+gem "redcarpet", "~> 3.6.1"
 
 # Pagination (outdated version)
 gem "will_paginate", "~> 3.3.1"
