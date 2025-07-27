@@ -52,7 +52,7 @@ gem "carrierwave", "~> 1.2.2"  # Known for path traversal CVE
 gem "redcarpet", "~> 3.5.0"
 
 # Pagination (outdated version)
-gem "will_paginate", "~> 3.3.1"
+gem "will_paginate", "~> 4.0.1"
 
 # Additional vulnerable gem
 gem "rack-cors", "~> 0.4.0"  # Known for CORS misconfiguration
